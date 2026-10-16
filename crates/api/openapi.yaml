@@ -1,0 +1,265 @@
+openapi: 3.1.0
+info:
+  title: City, building by building
+  version: v1
+  description: |
+    Buildings, occupancy layers and user marks for each city built by the pipeline.
+
+    Layers come from **providers** that the server merges into one view per city:
+    `generated` (pipeline output from Wikidata, Overture and OSM) and `marks` (written
+    through this API). New sources are added as providers on the server; clients see them as
+    more layers and categories, with no change to these endpoints.
+
+    Coordinates: `lonlat` is WGS84 `[lon, lat]`. A `gid` is a building id, valid for one
+    pipeline build of a city. Lists take `limit`/`offset` and return `total` and `next` (the
+    offset of the next page, or null). Most lists can be had as GeoJSON with `format=geojson`.
+
+    Writes (marks) are open unless the server runs with a token; then send
+    `Authorization: Bearer <token>`. `X-Author` names who made a mark.
+
+    Extra layers can be configured without code: a `geojson` provider in `api.json` turns any
+    FeatureCollection into a layer (see README).
+servers:
+  - url: /api/v1
+paths:
+  /:
+    get:
+      summary: Service info, cities, providers
+      responses: { "200": { description: OK } }
+  /cities:
+    get:
+      summary: All cities with building counts, bounds, periods, sources and licences
+      responses: { "200": { description: OK } }
+  /cities/{city}:
+    parameters: [{ $ref: "#/components/parameters/city" }]
+    get:
+      summary: One city, with links to its resources
+      responses: { "200": { description: OK }, "404": { $ref: "#/components/responses/NotFound" } }
+  /cities/{city}/buildings:
+    parameters:
+      - $ref: "#/components/parameters/city"
+      - $ref: "#/components/parameters/bbox"
+      - $ref: "#/components/parameters/near"
+      - $ref: "#/components/parameters/radius"
+      - { name: year_from, in: query, schema: { type: integer } }
+      - { name: year_to, in: query, schema: { type: integer } }
+      - { name: unknown_year, in: query, schema: { type: boolean }, description: "include unknown years (default: only without a year filter)" }
+      - { name: exact_year, in: query, schema: { type: boolean } }
+      - { name: period, in: query, schema: { type: string }, description: "period name or index" }
+      - { name: use, in: query, schema: { type: string }, description: "residential, commercial, industrial, civic, mixed, other (or index)" }
+      - { name: min_height, in: query, schema: { type: number } }
+      - { name: max_height, in: query, schema: { type: number } }
+      - { name: min_floors, in: query, schema: { type: integer } }
+      - { name: demolished, in: query, description: "demolished buildings are left out unless `true` (only them) or `any`", schema: { type: string, enum: ["true", "any"] } }
+      - { name: standing, in: query, description: "only buildings standing in this year (built by then, not yet demolished)", schema: { type: integer } }
+      - { name: landmark, in: query, schema: { type: boolean } }
+      - { name: layer, in: query, schema: { type: string }, description: "with an occupant in this layer" }
+      - { name: category, in: query, schema: { type: string }, description: "with an occupant in this category (or a child of it)" }
+      - { name: sort, in: query, schema: { type: string, enum: [gid, near, year, height], default: gid } }
+      - { name: desc, in: query, schema: { type: boolean } }
+      - $ref: "#/components/parameters/format"
+      - { name: limit, in: query, schema: { type: integer, default: 100, maximum: 10000 }, description: "2000 max for geojson" }
+      - { name: offset, in: query, schema: { type: integer, default: 0 } }
+    get:
+      summary: Find buildings by area and attributes
+      responses:
+        "200": { description: "OK: {total, next, items} or a FeatureCollection of footprints" }
+        "400": { $ref: "#/components/responses/Bad" }
+  /cities/{city}/stats:
+    parameters:
+      - $ref: "#/components/parameters/city"
+      - { name: by, in: query, schema: { type: string, enum: [period, use, decade, year, yearSource, floors, category], default: period } }
+      - { name: layer, in: query, schema: { type: string }, description: "for by=category" }
+      - $ref: "#/components/parameters/bbox"
+      - $ref: "#/components/parameters/near"
+      - $ref: "#/components/parameters/radius"
+    get:
+      summary: Counts of buildings by period, use, decade, … in an area (takes the /buildings filters too)
+      responses: { "200": { description: "{total, groups: [{key, label, count}]}" } }
+  /cities/{city}/events:
+    parameters: [{ $ref: "#/components/parameters/city" }]
+    get:
+      summary: Server-sent events; `layers` whenever a write changes the city's layers
+      responses: { "200": { description: OK, content: { text/event-stream: {} } } }
+  /cities/{city}/buildings/{gid}:
+    parameters:
+      - $ref: "#/components/parameters/city"
+      - { name: gid, in: path, required: true, schema: { type: integer, minimum: 0 } }
+      - $ref: "#/components/parameters/format"
+    get:
+      summary: A building, decoded, with its occupants from every provider
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/Building" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /cities/{city}/buildings/at:
+    parameters:
+      - $ref: "#/components/parameters/city"
+      - { name: lon, in: query, required: true, schema: { type: number } }
+      - { name: lat, in: query, required: true, schema: { type: number } }
+      - $ref: "#/components/parameters/format"
+    get:
+      summary: The building whose footprint contains the point (else the nearest within 25 m)
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/Building" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /cities/{city}/layers:
+    parameters: [{ $ref: "#/components/parameters/city" }]
+    get:
+      summary: Merged layers, categories and every item, in the compact form the map loads
+      description: |
+        `items` are rows in the order of `itemColumns`; `layer` and `category` are indices into
+        `layers` and that layer's `categories`. Each category has a colour slot `bit` (0..63).
+        Sent with an ETag; revalidate with If-None-Match.
+      responses: { "200": { description: OK }, "304": { description: Not modified } }
+  /cities/{city}/layers/links.bin:
+    parameters: [{ $ref: "#/components/parameters/city" }]
+    get:
+      summary: Building → item index (binary CSR)
+      description: |
+        Little-endian `SFL3`: magic, u32 nB, u32 nLinks, u32 linkStart[nB+1], u32 link[nLinks].
+        Items of building g are rows `link[linkStart[g]..linkStart[g+1]]` of `/layers` `items`.
+        Same ETag as `/layers`.
+      responses: { "200": { description: OK, content: { application/octet-stream: {} } }, "304": { description: Not modified } }
+  /cities/{city}/items:
+    parameters:
+      - $ref: "#/components/parameters/city"
+      - { name: layer, in: query, schema: { type: string }, example: startups }
+      - { name: category, in: query, schema: { type: string }, description: "includes child categories", example: software }
+      - { name: tag, in: query, schema: { type: string }, example: acquired }
+      - { name: year, in: query, schema: { type: integer }, description: "only items active in this year" }
+      - { name: q, in: query, schema: { type: string }, description: "name contains (case-insensitive)" }
+      - { name: provider, in: query, schema: { type: string }, description: "generated, marks, or a configured provider id" }
+      - { name: author, in: query, schema: { type: string } }
+      - $ref: "#/components/parameters/bbox"
+      - $ref: "#/components/parameters/near"
+      - $ref: "#/components/parameters/radius"
+      - $ref: "#/components/parameters/format"
+      - { name: limit, in: query, schema: { type: integer, default: 100, maximum: 1000 } }
+      - { name: offset, in: query, schema: { type: integer, default: 0 } }
+    get:
+      summary: Search occupants across providers
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total: { type: integer }
+                  offset: { type: integer }
+                  items: { type: array, items: { $ref: "#/components/schemas/Item" } }
+  /cities/{city}/marks:
+    parameters: [{ $ref: "#/components/parameters/city" }]
+    get:
+      summary: All marks of the city
+      responses: { "200": { description: OK, content: { application/json: { schema: { type: array, items: { $ref: "#/components/schemas/Item" } } } } } }
+    post:
+      summary: Mark a building
+      security: [{ token: [] }, {}]
+      parameters: [{ $ref: "#/components/parameters/author" }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/MarkInput" } } } }
+      responses:
+        "201": { description: Created, content: { application/json: { schema: { $ref: "#/components/schemas/Item" } } } }
+        "400": { $ref: "#/components/responses/Bad" }
+  /cities/{city}/marks/batch:
+    parameters: [{ $ref: "#/components/parameters/city" }]
+    post:
+      summary: Create up to 5000 marks; rows that fail are reported, the rest are created
+      security: [{ token: [] }, {}]
+      parameters: [{ $ref: "#/components/parameters/author" }]
+      requestBody:
+        required: true
+        content: { application/json: { schema: { type: object, properties: { items: { type: array, items: { $ref: "#/components/schemas/MarkInput" } } } } } }
+      responses: { "200": { description: "{created: [Item], errors: [{index, error}]}" } }
+  /cities/{city}/marks/{id}:
+    parameters:
+      - $ref: "#/components/parameters/city"
+      - { name: id, in: path, required: true, schema: { type: string }, example: "mark:7" }
+    put:
+      summary: Replace a mark
+      security: [{ token: [] }, {}]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/MarkInput" } } } }
+      responses: { "200": { description: OK }, "400": { $ref: "#/components/responses/Bad" }, "404": { $ref: "#/components/responses/NotFound" } }
+    delete:
+      summary: Delete a mark
+      security: [{ token: [] }, {}]
+      responses: { "204": { description: Deleted }, "404": { $ref: "#/components/responses/NotFound" } }
+components:
+  securitySchemes:
+    token: { type: http, scheme: bearer, description: "only when the server runs with a token (api.json token or API_TOKEN)" }
+  parameters:
+    city: { name: city, in: path, required: true, schema: { type: string, enum: [sf, bay, nyc, boston] } }
+    bbox: { name: bbox, in: query, schema: { type: string }, example: "-122.40,37.78,-122.39,37.79", description: "lon0,lat0,lon1,lat1" }
+    near: { name: near, in: query, schema: { type: string }, example: "-122.3983,37.7827", description: "lon,lat — results nearest first with sort=near" }
+    radius: { name: radius, in: query, schema: { type: number, default: 250, maximum: 20000 }, description: "metres, with near" }
+    format: { name: format, in: query, schema: { type: string, enum: [json, geojson], default: json } }
+    author: { name: X-Author, in: header, schema: { type: string, maxLength: 80 } }
+  responses:
+    NotFound: { description: Not found, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+    Bad: { description: Bad request, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+  schemas:
+    Error: { type: object, properties: { error: { type: string } } }
+    Item:
+      type: object
+      required: [id, layer, category, name]
+      properties:
+        id: { type: string, description: "unique across providers: gen:<n> or mark:<n>" }
+        layer: { type: string }
+        category: { type: string }
+        name: { type: string }
+        role: { type: [string, "null"], enum: [founded, hq, office, lab, campus, dorm, other, null] }
+        author: { type: string }
+        from: { type: [integer, "null"] }
+        to: { type: [integer, "null"] }
+        url: { type: [string, "null"] }
+        note: { type: [string, "null"] }
+        wikidata: { type: [string, "null"] }
+        source: { type: string }
+        tags: { type: array, items: { type: string } }
+        gids: { type: array, items: { type: integer } }
+        lonlat: { type: array, items: { type: number }, minItems: 2, maxItems: 2 }
+        provider: { type: string }
+    MarkInput:
+      type: object
+      required: [name]
+      description: |
+        Put the mark in an existing category with `layer` + `category`, or in a new one with
+        `categoryName` (created in the layer `mine`). Give the building as `gid`, or `lonlat`
+        to have the server find it.
+      properties:
+        layer: { type: string, example: startups }
+        category: { type: string, example: ai }
+        categoryName: { type: string, example: MIT spinouts }
+        categoryColor: { type: string, example: "#e4572e" }
+        name: { type: string }
+        role: { type: string }
+        from: { type: integer }
+        to: { type: integer }
+        url: { type: string }
+        note: { type: string }
+        tags: { type: array, items: { type: string } }
+        gid: { type: integer }
+        lonlat: { type: array, items: { type: number }, minItems: 2, maxItems: 2 }
+    Building:
+      type: object
+      properties:
+        gid: { type: integer }
+        year: { type: [integer, "null"] }
+        period: { type: [string, "null"] }
+        flags:
+          type: object
+          properties:
+            approximateYear: { type: boolean }
+            landmark: { type: boolean }
+            parcelSharedYear: { type: boolean }
+            estimatedHeight: { type: boolean }
+            censusAreaMedianYear: { type: boolean }
+        floors: { type: integer }
+        use: { type: string }
+        height: { type: number, description: metres }
+        base: { type: [number, "null"], description: "ground elevation, metres (NAVD88)" }
+        address: { type: [string, "null"] }
+        sources: { type: object, properties: { year: { type: [string, "null"] }, height: { type: [string, "null"] }, footprint: { type: [string, "null"] } } }
+        lonlat: { type: array, items: { type: number } }
+        occupants: { type: array, items: { $ref: "#/components/schemas/Item" } }

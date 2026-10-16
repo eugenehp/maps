@@ -1,0 +1,5 @@
+[build]
+rustc-wrapper = "sccache"
+
+[env]
+CARGO_INCREMENTAL = "0"

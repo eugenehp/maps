@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#e4e8ea">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A city, building by building</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- fonts must not hold up the map: loaded as print, switched on when they arrive -->
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="styles.css">
+<script>
+// a static build (`pipeline site`) replaces this with its cities and options
+window.__SITE = null;
+</script>
+<script>
+// the colour scheme the page will use (app.js, schemes.js), set now so a dark page does not flash light
+try { document.documentElement.dataset.scheme = new URLSearchParams(location.search).get('scheme') || localStorage.getItem('scheme') || 'classic'; } catch { }
+</script>
+<script>
+// fetch the renderer (shim, wasm-bindgen glue, wasm) alongside app.js instead of after it:
+// the same variant app.js will pick (threers-gl without WebGPU or with ?gl=1)
+{
+  const v = /[?&]gl=1/.test(location.search) || !navigator.gpu ? 'threers-gl' : 'threers';
+  const add = (rel, href, extra) => { const l = document.createElement('link'); Object.assign(l, { rel, href, ...extra }); document.head.append(l); };
+  for (const f of ['threejs-shim.js', 'pkg/threers.js', 'deps/Earcut.js', 'deps/meshopt_decoder.module.js', 'video-export.js']) add('modulepreload', `${v}/${f}`);
+  const gz = window.__SITE?.gz && typeof DecompressionStream !== 'undefined';
+  add('preload', `${v}/pkg/threers_bg.wasm${gz ? '.gz' : ''}`, { as: 'fetch', crossOrigin: 'anonymous' });
+  // the render worker (gfx.js): started here, so it fetches and compiles the renderer while app.js loads
+  if (typeof OffscreenCanvas !== 'undefined' && !/[?&]inline\b/.test(location.search)) {
+    const hide = /[?&]gl=1/.test(location.search) ? 1 : 0;
+    try { window.__renderWorker = new Worker(`render-worker.js?variant=${v}&gz=${gz ? 1 : 0}&hide=${hide}`, { type: 'module' }); } catch { }
+  }
+  // a static site keeps what it downloaded (sw.js): a second visit loads from disk
+  if (window.__SITE?.static && 'serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => { });
+  // and the city's manifest (app.js takes this response instead of asking again)
+  const city = (new URLSearchParams(location.search).get('city') || 'sf').replace(/[^a-z0-9_-]/gi, '') || 'sf';
+  window.__manifest = { url: `data/${city}/index.json`, res: fetch(`data/${city}/index.json`, { cache: 'no-cache' }).catch(() => null) };
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect x=%222%22 y=%226%22 width=%225%22 height=%229%22 fill=%22%23c0392b%22/%3E%3Crect x=%228%22 y=%222%22 width=%226%22 height=%2213%22 fill=%22%233b5ba9%22/%3E%3C/svg%3E">
+</head>
+<body>
+<canvas id="scene" aria-label="3D map of the city's buildings"></canvas>
+<div class="veil veil-top" aria-hidden="true"></div>
+<div class="veil veil-bottom" aria-hidden="true"></div>
+
+<div class="leftcol">
+<header class="masthead">
+  <h1 id="title">Building by building</h1>
+  <p class="dek">Every building standing today, by the year it was built.</p>
+  <nav class="city-pick" id="city" aria-label="City"></nav>
+</header>
+<aside id="panel" class="panel"><div id="panel-body"></div></aside>
+</div>
+
+<nav class="modes" aria-label="Colour the city by"></nav>
+
+<div class="tally" aria-live="polite">
+  <span id="year" class="tally-year">&nbsp;</span>
+  <span class="tally-count"><span id="count">0</span> buildings</span>
+  <div class="tally-tools">
+    <select id="scheme" class="scheme-pick" aria-label="Colour scheme" title="Colour scheme"></select>
+    <button class="about-open" aria-haspopup="dialog">About</button>
+  </div>
+</div>
+
+
+<div id="card" class="card" hidden></div>
+
+<dialog id="about" class="about" aria-labelledby="about-title">
+  <button class="about-close" aria-label="Close">×</button>
+  <article id="about-body"></article>
+</dialog>
+
+<p class="howto">Drag to turn. Right-drag or Shift-drag to move. Scroll to zoom.</p>
+
+<footer class="timeline">
+  <button id="play" class="play" aria-label="Play the city’s growth">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4 2.5v11l9-5.5z"/></svg>
+  </button>
+  <canvas id="hist" aria-label="Buildings per year; drag to set the year"></canvas>
+</footer>
+<p id="attribution" class="attribution"></p>
+
+<div id="loading" class="loading">Building the city <span id="progress">0</span>%</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

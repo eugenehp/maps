@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>offscreen test</title>
+<canvas id="c" width="400" height="300" style="width:400px;height:300px"></canvas>
+<script type="module">
+const c = document.getElementById('c');
+const off = c.transferControlToOffscreen();
+const w = new Worker('./worker.js', { type: 'module' });
+w.onmessage = e => { window.__result = e.data; document.title = JSON.stringify(e.data); };
+w.postMessage({ canvas: off, gl: location.search.includes('gl') }, [off]);
+</script>

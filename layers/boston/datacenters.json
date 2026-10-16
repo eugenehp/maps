@@ -1,0 +1,557 @@
+{
+  "id": "datacenters",
+  "name": "Data centres",
+  "description": "Data centres (outlines from the PNNL IM3 Data Center Atlas and OpenStreetMap; status, capacity and plans from Compute Atlas) and telephone exchanges.",
+  "licence": "© OpenStreetMap contributors, ODbL 1.0 (Overpass API); PNNL IM3 Open Source Data Center Atlas (ODbL 1.0, DOI 10.57931/2550666); Data from Compute Atlas by Edward Kubiak, CC BY 4.0; Overture places (CDLA-Permissive-2.0, Apache-2.0); operators' own location pages, California government records (CEC, CEQAnet) and building energy benchmarking (CEC AB 802, San José BPO CC0, SF ECB PDDL, Brisbane, ENERGY STAR), placed with Overture address points; SF Assessor roll (ODC-PDDL); energy disclosures: NYC LL84 (NYC Open Data), Boston BERDO (ODC-PDDL), Cambridge BEUDO (City of Cambridge open data)",
+  "publishable": true,
+  "generated": true,
+  "categories": [
+    {
+      "id": "datacenter",
+      "name": "Data centre",
+      "color": "#2b6cb0",
+      "parent": null
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud / company-owned",
+      "color": "#7b3fa0",
+      "parent": null
+    },
+    {
+      "id": "exchange",
+      "name": "Telephone exchange",
+      "color": "#8a7f6e",
+      "parent": null
+    },
+    {
+      "id": "hall",
+      "name": "Data hall in a larger building",
+      "color": "#4fa3c7",
+      "parent": null
+    },
+    {
+      "id": "planned",
+      "name": "Planned / under construction",
+      "color": "#9aa5b1",
+      "parent": null
+    }
+  ],
+  "items": [
+    {
+      "name": "CoreSite BO1",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "polygon": [
+          [
+            -71.080291,
+            42.376095
+          ],
+          [
+            -71.079138,
+            42.376141
+          ],
+          [
+            -71.079224,
+            42.377317
+          ],
+          [
+            -71.080378,
+            42.37727
+          ],
+          [
+            -71.080291,
+            42.376095
+          ]
+        ]
+      },
+      "url": "https://www.coresite.com/data-center-locations/boston",
+      "note": "133,960 ft² · CoreSite",
+      "source": "pnnl-im3+compute-atlas+operator-websites+overture-places"
+    },
+    {
+      "name": "AT&T",
+      "category": "exchange",
+      "tags": [
+        "at&t"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.084724,
+          42.36708
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "Telephone exchange",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.083473,
+          42.367067
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "Verizon",
+      "category": "exchange",
+      "tags": [
+        "verizon"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.037884,
+          42.376255
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "Telephone exchange",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.082743,
+          42.367395
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "Csquare Watertown BOS4",
+      "category": "datacenter",
+      "tags": [
+        "centersquare (csquare; ex-evoque/cyxtera)"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.15931,
+          42.366354
+        ]
+      },
+      "url": "https://www.csquare.com/hubfs/Centersquare%20website/docs/Csquare-BOS-SpecSheet.pdf",
+      "note": "Centersquare (Csquare; ex-Evoque/Cyxtera) · 19 MW",
+      "source": "operator-websites"
+    },
+    {
+      "name": "Evocative Boston BOS1",
+      "category": "datacenter",
+      "tags": [
+        "evocative (ex-inap)"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.080062,
+          42.378329
+        ]
+      },
+      "url": "https://evocative.com/data-centers/boston-ma-data-center-bos1/",
+      "note": "Evocative (ex-INAP) · 6 MW · 6 MW",
+      "source": "operator-websites+compute-atlas+overture-places"
+    },
+    {
+      "name": "Expedient Boston",
+      "category": "datacenter",
+      "tags": [
+        "expedient"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.07518,
+          42.405324
+        ]
+      },
+      "note": "Expedient",
+      "source": "compute-atlas"
+    },
+    {
+      "name": "Lumen Boston (300 Bent Street)",
+      "category": "datacenter",
+      "tags": [
+        "lumen technologies"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.090485,
+          42.369311
+        ]
+      },
+      "note": "Lumen Technologies",
+      "source": "compute-atlas"
+    },
+    {
+      "name": "Markley Group Boston (One Summer Street / BOSIX)",
+      "category": "datacenter",
+      "tags": [
+        "markley group"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.063587,
+          42.35647
+        ]
+      },
+      "note": "Markley Group · 30 MW",
+      "source": "compute-atlas"
+    },
+    {
+      "name": "Utility Datacenter",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.19518,
+          42.330278
+        ]
+      },
+      "source": "overture-places"
+    },
+    {
+      "name": "Centersquare Boston Data Center (Watertown)",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.159347,
+          42.365975
+        ]
+      },
+      "source": "overture-places"
+    },
+    {
+      "name": "Internap Network",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.08036,
+          42.378004
+        ]
+      },
+      "source": "overture-places"
+    },
+    {
+      "name": "Premier Data Center Services",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.12132,
+          42.395801
+        ]
+      },
+      "source": "overture-places"
+    },
+    {
+      "name": "Vertical Data Centers",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.056434,
+          42.359266
+        ]
+      },
+      "source": "overture-places"
+    },
+    {
+      "name": "145 Broadway",
+      "category": "hall",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.0888,
+          42.3649
+        ]
+      },
+      "note": "10,000 ft² data hall (BEUDO 2024)",
+      "source": "cambridge-beudo"
+    },
+    {
+      "name": "185 / 205 Bent St",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.0829,
+          42.3674
+        ]
+      },
+      "note": "22,967 ft² data centre (BEUDO 2024)",
+      "source": "cambridge-beudo"
+    },
+    {
+      "name": "250 Bent St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.0847,
+          42.3671
+        ]
+      },
+      "note": "138,000 ft² data centre (BEUDO 2024)",
+      "source": "cambridge-beudo"
+    },
+    {
+      "name": "300 Bent Street",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.0867,
+          42.3674
+        ]
+      },
+      "note": "90,000 ft² data centre (BEUDO 2024)",
+      "source": "cambridge-beudo"
+    },
+    {
+      "name": "89 Fulkerson Street",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -71.0879,
+          42.3695
+        ]
+      },
+      "note": "30,520 ft² data centre (BEUDO 2024)",
+      "source": "cambridge-beudo"
+    },
+    {
+      "name": "245 Summer St",
+      "category": "hall",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "245 Summer St"
+      },
+      "note": "21,000 ft² data hall (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "800 Boylston St",
+      "category": "hall",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "800 Boylston St"
+      },
+      "note": "45,000 ft² data hall (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "28 State St",
+      "category": "hall",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "28 State St"
+      },
+      "note": "13,035 ft² data hall (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "175 Adams St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "175 Adams St"
+      },
+      "note": "104,335 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "42 Saratoga St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "42 Saratoga St"
+      },
+      "note": "23,296 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "29 Belvidere St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "29 Belvidere St"
+      },
+      "note": "119,288 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "65 Cambridge St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "65 Cambridge St"
+      },
+      "note": "223,538 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "26 Waverly St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "26 Waverly St"
+      },
+      "note": "107,953 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "71 H St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "71 H St"
+      },
+      "note": "23,572 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "426 Belgrade Ave",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "426 Belgrade Ave"
+      },
+      "note": "34,755 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "50 Henshaw St",
+      "category": "exchange",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "50 Henshaw St"
+      },
+      "note": "21,348 ft² data centre (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "230 Congress St",
+      "category": "hall",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "230 Congress St"
+      },
+      "note": "37,062 ft² data hall (BERDO 2025)",
+      "source": "boston-berdo"
+    },
+    {
+      "name": "451 D St",
+      "category": "hall",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "address": "451 D St"
+      },
+      "note": "40,959 ft² data hall (BERDO 2025)",
+      "source": "boston-berdo"
+    }
+  ]
+}

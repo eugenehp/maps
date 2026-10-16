@@ -1,0 +1,13 @@
+/cache/
+/data-private/
+/target/
+marks.sqlite*
+/site/
+.DS_Store
+/web/.threers-build/
+/web/data/bay/
+/web/data/**/*.br
+/web/data/**/*.gz
+/web/lod-test*/
+/web/perf-diagnose/
+/web/shots/

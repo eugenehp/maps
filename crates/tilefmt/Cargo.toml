@@ -1,0 +1,8 @@
+[package]
+name = "tilefmt"
+version = "0.1.0"
+edition = "2021"
+description = "The building tile format (SFT3/4 read, SFT5 read+write), shared by the pipeline and the API"
+
+[dependencies]
+anyhow = "1"

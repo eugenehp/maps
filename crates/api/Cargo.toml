@@ -1,0 +1,28 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+description = "HTTP API over the city data: buildings, occupancy layers (pluggable providers) and user marks"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "api"
+path = "src/main.rs"
+
+[dependencies]
+tilefmt = { path = "../tilefmt" }
+anyhow = "1"
+futures-core = "0.3"
+axum = "0.8"
+parking_lot = "0.12"
+rusqlite = { version = "0.39", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal", "sync"] }
+tower-http = { version = "0.6", features = ["fs", "compression-gzip", "compression-br", "cors", "set-header"] }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"

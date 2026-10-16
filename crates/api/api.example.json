@@ -1,0 +1,14 @@
+{
+  "token": null,
+  "providers": [
+    {
+      "type": "geojson",
+      "id": "murals",
+      "city": "sf",
+      "path": "../layers/sf/murals.geojson",
+      "layer": { "id": "murals", "name": "Murals", "licence": "CC0", "publishable": true },
+      "category": { "property": "style", "default": "other", "colors": { "Mission": "#e4572e" } },
+      "properties": { "name": "title", "from": "year", "to": null, "url": "link", "note": "artist", "tags": "tags" }
+    }
+  ]
+}

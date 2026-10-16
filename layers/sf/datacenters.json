@@ -1,0 +1,457 @@
+{
+  "id": "datacenters",
+  "name": "Data centres",
+  "description": "Data centres (outlines from the PNNL IM3 Data Center Atlas and OpenStreetMap; status, capacity and plans from Compute Atlas) and telephone exchanges.",
+  "licence": "© OpenStreetMap contributors, ODbL 1.0 (Overpass API); PNNL IM3 Open Source Data Center Atlas (ODbL 1.0, DOI 10.57931/2550666); Data from Compute Atlas by Edward Kubiak, CC BY 4.0; Overture places (CDLA-Permissive-2.0, Apache-2.0); operators' own location pages, California government records (CEC, CEQAnet) and building energy benchmarking (CEC AB 802, San José BPO CC0, SF ECB PDDL, Brisbane, ENERGY STAR), placed with Overture address points; SF Assessor roll (ODC-PDDL); energy disclosures: NYC LL84 (NYC Open Data), Boston BERDO (ODC-PDDL), Cambridge BEUDO (City of Cambridge open data)",
+  "publishable": true,
+  "generated": true,
+  "categories": [
+    {
+      "id": "datacenter",
+      "name": "Data centre",
+      "color": "#2b6cb0",
+      "parent": null
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud / company-owned",
+      "color": "#7b3fa0",
+      "parent": null
+    },
+    {
+      "id": "exchange",
+      "name": "Telephone exchange",
+      "color": "#8a7f6e",
+      "parent": null
+    },
+    {
+      "id": "hall",
+      "name": "Data hall in a larger building",
+      "color": "#4fa3c7",
+      "parent": null
+    },
+    {
+      "id": "planned",
+      "name": "Planned / under construction",
+      "color": "#9aa5b1",
+      "parent": null
+    }
+  ],
+  "items": [
+    {
+      "name": "Ntirety data centre",
+      "category": "datacenter",
+      "tags": [
+        "ntirety"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.394001,
+          37.779653
+        ]
+      },
+      "url": "https://data.sfgov.org/d/96ck-qcfe",
+      "note": "Ntirety · 630 3rd St · 40,340 ft² data centre (2025) · SF Existing Buildings Ordinance 2025",
+      "source": "pnnl-im3+ca-benchmarking"
+    },
+    {
+      "name": "360 Spear Street Data Center",
+      "category": "datacenter",
+      "tags": [
+        "digital realty"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "polygon": [
+          [
+            -122.390627,
+            37.789136
+          ],
+          [
+            -122.389958,
+            37.788603
+          ],
+          [
+            -122.389647,
+            37.788847
+          ],
+          [
+            -122.390315,
+            37.78938
+          ],
+          [
+            -122.390627,
+            37.789136
+          ]
+        ]
+      },
+      "note": "Digital Realty · 34,599 ft²",
+      "source": "pnnl-im3"
+    },
+    {
+      "name": "Digital Realty San Francisco SFO10",
+      "category": "datacenter",
+      "tags": [
+        "digital realty"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "polygon": [
+          [
+            -122.398271,
+            37.723882
+          ],
+          [
+            -122.398292,
+            37.723884
+          ],
+          [
+            -122.398524,
+            37.723166
+          ],
+          [
+            -122.398366,
+            37.723129
+          ],
+          [
+            -122.398368,
+            37.723125
+          ],
+          [
+            -122.397648,
+            37.722955
+          ],
+          [
+            -122.397385,
+            37.723777
+          ],
+          [
+            -122.397439,
+            37.723785
+          ],
+          [
+            -122.397447,
+            37.723753
+          ],
+          [
+            -122.397572,
+            37.723771
+          ],
+          [
+            -122.397481,
+            37.724149
+          ],
+          [
+            -122.398106,
+            37.724252
+          ],
+          [
+            -122.398101,
+            37.724282
+          ],
+          [
+            -122.398206,
+            37.724299
+          ],
+          [
+            -122.398236,
+            37.724186
+          ],
+          [
+            -122.398196,
+            37.724179
+          ],
+          [
+            -122.398271,
+            37.723882
+          ]
+        ]
+      },
+      "url": "https://www.energy.ca.gov/sites/default/files/2026-09/2025_Download_ADA.xlsx",
+      "note": "Digital Realty · 104,867 ft² · 200 Paul Ave (sfo10) · 557,226 ft² data centre (2025) · CEC AB802 2025 · SF Assessor: Industrial Data Center",
+      "source": "pnnl-im3+compute-atlas+ca-benchmarking+sf-assessor"
+    },
+    {
+      "name": "365 Main Street Data Center",
+      "category": "datacenter",
+      "tags": [
+        "digital realty"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "polygon": [
+          [
+            -122.389958,
+            37.788603
+          ],
+          [
+            -122.390627,
+            37.789136
+          ],
+          [
+            -122.39098,
+            37.788859
+          ],
+          [
+            -122.390312,
+            37.788326
+          ],
+          [
+            -122.389998,
+            37.788572
+          ],
+          [
+            -122.389958,
+            37.788603
+          ]
+        ]
+      },
+      "url": "https://www.energy.ca.gov/sites/default/files/2026-09/2025_Download_ADA.xlsx",
+      "note": "Digital Realty · 39,318 ft² · 365 Main St (sfo12) · 226,980 ft² data centre (2025) · CEC AB802 2025 · SF Assessor: Industrial Data Center",
+      "source": "pnnl-im3+compute-atlas+ca-benchmarking+operator-websites+sf-assessor"
+    },
+    {
+      "name": "Ntirety data centre",
+      "category": "datacenter",
+      "tags": [
+        "ntirety"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.394001,
+          37.779653
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "AT&T",
+      "category": "exchange",
+      "tags": [
+        "at&t"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.416893,
+          37.75047
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "AT&T telephone exchange",
+      "category": "exchange",
+      "tags": [
+        "at&t"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.467857,
+          37.781183
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "AT&T",
+      "category": "exchange",
+      "tags": [
+        "at&t"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.477383,
+          37.759311
+        ]
+      },
+      "source": "osm"
+    },
+    {
+      "name": "Cogent San Jose Office and Data Center",
+      "category": "datacenter",
+      "tags": [
+        "cogent communications"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.388787,
+          37.739197
+        ]
+      },
+      "url": "https://www.cogentco.com/cogent-bay-area",
+      "note": "Cogent Communications",
+      "source": "address-research"
+    },
+    {
+      "name": "One Bush Street",
+      "category": "hall",
+      "tags": [
+        "one bush street"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.400047,
+          37.791047
+        ]
+      },
+      "url": "https://www.energy.ca.gov/sites/default/files/2025-10/2023_Download_ADA.xlsx",
+      "note": "One Bush Street · 13,181 ft² data hall (2023) · CEC AB802 2023",
+      "source": "ca-benchmarking"
+    },
+    {
+      "name": "1455 Market Street",
+      "category": "hall",
+      "tags": [
+        "1455 market street"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.417898,
+          37.775556
+        ]
+      },
+      "url": "https://www.energy.ca.gov/sites/default/files/2026-09/2025_Download_ADA.xlsx",
+      "note": "1455 Market Street · 50,000 ft² data hall (2025) · CEC AB802 2025",
+      "source": "ca-benchmarking"
+    },
+    {
+      "name": "China Basin",
+      "category": "hall",
+      "tags": [
+        "china basin"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.391949,
+          37.776597
+        ]
+      },
+      "url": "https://www.energy.ca.gov/sites/default/files/2025-10/2024_Download_ADA.xlsx",
+      "note": "China Basin · 37,949 ft² data hall (2024) · CEC AB802 2024",
+      "source": "ca-benchmarking"
+    },
+    {
+      "name": "274 Brannan JV LLC",
+      "category": "datacenter",
+      "tags": [
+        "274 brannan jv llc"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.391766,
+          37.782627
+        ]
+      },
+      "url": "https://data.sfgov.org/d/96ck-qcfe",
+      "note": "274 Brannan JV LLC · 110,708 ft² data centre (2025) · SF Existing Buildings Ordinance 2025 · SF Assessor: Industrial Data Center",
+      "source": "ca-benchmarking+overture-places+sf-assessor"
+    },
+    {
+      "name": "Colocation America SFDC1 (200 Paul)",
+      "category": "datacenter",
+      "tags": [
+        "colocation america"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.39731,
+          37.725246
+        ]
+      },
+      "url": "https://www.colocationamerica.com/data-center-locations/san-francisco",
+      "note": "Colocation America · Digital Realty · Monkeybrains · UnitedLayer · SF Assessor: Industrial Data Center",
+      "source": "operator-websites+compute-atlas+overture-places+sf-assessor"
+    },
+    {
+      "name": "1215 Michigan Street Data Center (Nestory Park Capital proposal)",
+      "category": "planned",
+      "tags": [
+        "nestory park capital"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.385758,
+          37.753932
+        ]
+      },
+      "note": "Nestory Park Capital · proposed",
+      "source": "compute-atlas"
+    },
+    {
+      "name": "Novva San Francisco (400 Paul Avenue)",
+      "category": "datacenter",
+      "tags": [
+        "novva data centers"
+      ],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.39868,
+          37.72485
+        ]
+      },
+      "note": "Novva Data Centers · 9 MW",
+      "source": "compute-atlas"
+    },
+    {
+      "name": "300 Paul Av",
+      "category": "datacenter",
+      "tags": [],
+      "role": "facility",
+      "from": null,
+      "to": null,
+      "where": {
+        "lonlat": [
+          -122.398823,
+          37.724491
+        ]
+      },
+      "note": "SF Assessor: Industrial Data Center",
+      "source": "sf-assessor"
+    }
+  ]
+}

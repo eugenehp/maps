@@ -1,0 +1,11 @@
+{
+  "id": "mit-great-dome",
+  "name": "MIT Great Dome (Building 10)",
+  "model": "mit-great-dome.glb",
+  "lonlat": [-71.092059, 42.359755],
+  "rotation": 0,
+  "replace": { "radius": 21, "minHeight": 25 },
+  "licence": "CC0 1.0 (model); heights from OpenStreetMap contributors, ODbL",
+  "publishable": true,
+  "source": "landmarks/tools/mit_great_dome.py"
+}

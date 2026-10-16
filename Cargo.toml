@@ -1,0 +1,6 @@
+[workspace]
+members = ["crates/pipeline", "crates/api", "crates/tilefmt"]
+resolver = "2"
+
+[profile.release]
+debug = false
